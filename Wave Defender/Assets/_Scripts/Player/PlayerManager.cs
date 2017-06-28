@@ -4,20 +4,38 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
-    RaycastHit wallHit;
-    public float checkDis;
+    RaycastHit gunHit;
+    public float gunCheckDis;
     public PlayerController pControl;
+    public Vector3 bounceBackR;
+    public Vector3 bounceBackL;
+    public Transform baseMid;
 
     void Start() {
         pControl = GetComponent<PlayerController>();
     }
 
+    void Update() {
+        GunInteraction();
+    }
 
-	void Update() {
-        if(Physics.Raycast(transform.position, transform.right, out wallHit, checkDis)) {
-            if (wallHit.transform.tag == "Wall") {
-                pControl.moveDir = new Vector3(-1,0,0);
+    public void GunInteraction() {
+        if (Physics.Raycast(transform.position, transform.forward, out gunHit, gunCheckDis)) {
+            if (gunHit.transform.tag == "Gun") {
+                if (Input.GetButtonDown("E")) {
+                    print("Turret Entered");
+                }
             }
+        }
+    }
+
+
+    void OnCollisionEnter(Collision collision) {
+        if(collision.transform.tag == "WallR") {
+            transform.position += bounceBackR;
+        }
+        else if(collision.transform.tag == "WallL") {
+            transform.position += bounceBackL;
         }
     }
 }
