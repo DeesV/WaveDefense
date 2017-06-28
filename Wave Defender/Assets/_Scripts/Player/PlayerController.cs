@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    /*Vector3 mouseInput;
-    Vector3 lookhere;*/
-    RaycastHit shootHit;
+    public Vector3 moveDir;
+    public float moveSpeed;
+    
 
     // Use this for initialization
     void Start () {
@@ -15,10 +15,11 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        transform.Rotate(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (Input.GetButtonDown("Fire1")) {
-            Physics.Raycast(transform.position, transform.forward, out shootHit, 30);
-            Debug.DrawRay(transform.position, transform.forward, Color.blue, 30);
-        }
+        Movement();
+    }
+
+    public void Movement() {
+        moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        transform.Translate(moveDir * Time.deltaTime * moveSpeed);
     }
 }
