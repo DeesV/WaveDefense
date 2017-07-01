@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour {
 
     public Vector3 moveDir;
     public float moveSpeed;
-    
 
     // Use this for initialization
     void Start () {
@@ -16,10 +15,12 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         Movement();
+
     }
 
     public void Movement() {
         moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         transform.Translate(moveDir * Time.deltaTime * moveSpeed);
     }
+
 }
